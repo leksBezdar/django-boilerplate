@@ -12,6 +12,15 @@ psycopg2 = "^2.9.9"
 django-environ = "^0.11.2"
 
 
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.4.6"
+flake8 = "^7.0.0"
+pre-commit = "^3.7.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

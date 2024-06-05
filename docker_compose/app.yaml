@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  main-app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: main-app
+    ports:
+      - "${API_PORT}:8000"
+    command: "python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - ../.env
+    volumes:
+      - ../core/:/core/
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsSL http://main-app:8000/healthcheck/"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 10s
+
+networks:
+  backend:
+    driver: bridge
