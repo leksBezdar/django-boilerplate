@@ -12,7 +12,7 @@ services:
     env_file:
       - ../.env
     volumes:
-      - ../core/:/core/
+      - ..:/core/
     networks:
       - backend
     healthcheck:
@@ -21,6 +21,8 @@ services:
       timeout: 60s
       retries: 5
       start_period: 10s
+    depends_on:
+      - postgres
 
 networks:
   backend:
