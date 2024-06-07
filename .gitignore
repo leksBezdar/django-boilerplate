@@ -164,3 +164,4 @@ cython_debug/
 core/project/settings/local.py
 static/*
 !static/.gitkeep
+.ruff_cache/
