@@ -38,7 +38,7 @@ Ensure you have the following installed on your local machine:
 
 - Docker
 - Docker Compose
-- Make
+- GNU Make
 
 ### Installation
 
