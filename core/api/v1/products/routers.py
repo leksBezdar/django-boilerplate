@@ -5,9 +5,8 @@ from core.api.filters import PaginationIn, PaginationOut
 from core.api.schemas import ApiResponse, ListPaginatedResponse
 from core.api.v1.products.filters import ProductFilters
 from core.api.v1.products.schemas import SProduct
+from core.project.containers import init_container
 from core.apps.products.services.base import IProductService
-from core.apps.products.services.products import ProductService
-
 
 product_router = Router(tags=["Products"])
 
@@ -18,7 +17,9 @@ def get_product_list(
     pagination_in: Query[PaginationIn],
     filters: Query[ProductFilters],
 ) -> ApiResponse[ListPaginatedResponse[SProduct]]:
-    service: IProductService = ProductService()
+    container = init_container()
+    service: IProductService = container.resolve(IProductService)
+
     product_list = service.get_product_list(filters=filters, pagination=pagination_in)
     product_count = service.get_product_count(filters=filters)
     items = [SProduct.from_entity(obj) for obj in product_list]
