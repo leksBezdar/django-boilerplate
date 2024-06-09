@@ -5,7 +5,7 @@ class AuthService(IAuthService):
     def authorize(self, phone: str):
         customer = self.customer_service.get_or_create_customer_by_phone(phone=phone)
         code = self.code_service.generate_code(customer=customer)
-        self.sender_service.send_code(code=code)
+        self.sender_service.send_code(customer=customer, code=code)
 
     def confirm(self, code: str, phone: str):
         customer = self.customer_service.get(phone)

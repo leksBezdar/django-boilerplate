@@ -1,8 +1,10 @@
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 from core.apps.customers.entities.customers import CustomerEntity
 
 
+@dataclass(eq=False)
 class IAuthService(ABC):
     customer_service: "ICustomerService"
     code_service: "ICodeSerivce"
@@ -24,7 +26,7 @@ class ICodeSerivce(ABC):
 
 class ISenderService(ABC):
     @abstractmethod
-    def send_code(self, code: str) -> None: ...
+    def send_code(self, customer: CustomerEntity, code: str) -> None: ...
 
 
 class ICustomerService(ABC):
