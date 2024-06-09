@@ -55,6 +55,12 @@ Ensure you have the following installed on your local machine:
     cp .env.example .env
     ```
 
+3. Create and modify local settings for django application.
+
+    ```sh
+    cp core/project/settings/local.example.py core/project/settings/local.py
+    ```
+
 ### Running the Project
 
 1. Build and start the Docker containers:
