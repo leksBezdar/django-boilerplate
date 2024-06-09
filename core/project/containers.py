@@ -10,7 +10,12 @@ from core.apps.customers.services.base import (
 )
 from core.apps.customers.services.codes import DjangoCacheCodeService
 from core.apps.customers.services.customers import CustomerService
-from core.apps.customers.services.senders import DummySenderService
+from core.apps.customers.services.senders import (
+    ComposedSenderService,
+    DummySenderService,
+    EmailSenderService,
+    PushSenderService,
+)
 from core.apps.products.services.base import IProductService
 from core.apps.products.services.products import ProductService
 
@@ -27,7 +32,15 @@ def _init_container() -> Container:
     container.register(IProductService, ProductService)
     container.register(ICustomerService, CustomerService)
     container.register(ICodeSerivce, DjangoCacheCodeService)
-    container.register(ISenderService, DummySenderService)
+    container.register(
+        ISenderService,
+        ComposedSenderService,
+        sender_services=(
+            DummySenderService(),
+            EmailSenderService(),
+            PushSenderService(),
+        ),
+    )
     container.register(IAuthService, AuthService)
 
     return container
