@@ -15,12 +15,11 @@ class CustomerModel(TimedBaseModel):
         verbose_name="User auth token",
         max_length=255,
         unique=True,
-        default=str(uuid4),
+        default=uuid4,
     )
 
     def to_entity(self) -> CustomerEntity:
         return CustomerEntity(
-            id=self.pk,
             phone=self.phone,
             created_at=self.created_at,
         )

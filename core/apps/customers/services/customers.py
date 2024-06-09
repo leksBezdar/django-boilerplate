@@ -6,9 +6,9 @@ from core.apps.customers.services.base import ICustomerService
 
 class CustomerService(ICustomerService):
     def get_or_create_customer_by_phone(self, phone: str) -> CustomerEntity:
-        user_dto, _ = CustomerModel.objects.get_or_create(phone=phone)
+        customer_dto, _ = CustomerModel.objects.get_or_create(phone=phone)
 
-        return user_dto.to_entity()
+        return customer_dto.to_entity()
 
     def get(self, phone: str) -> CustomerEntity:
         user_dto = CustomerModel.objects.get(phone=phone)
