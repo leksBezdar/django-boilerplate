@@ -3,9 +3,6 @@ from datetime import datetime
 
 
 @dataclass
-class ProductEntity:
-    id: int
-    title: str
-    description: str
+class CustomerEntity:
+    phone: str
     created_at: datetime
-    updated_at: datetime

@@ -2,7 +2,7 @@ from dataclasses import asdict
 from datetime import datetime
 from pydantic import BaseModel
 
-from core.apps.products.entities.products import Product
+from core.apps.products.entities.products import ProductEntity
 
 
 class SProduct(BaseModel):
@@ -13,5 +13,5 @@ class SProduct(BaseModel):
     updated_at: datetime | None = None
 
     @staticmethod
-    def from_entity(entity: Product) -> "SProduct":
+    def from_entity(entity: ProductEntity) -> "SProduct":
         return SProduct(**asdict(entity))
