@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import (
     Any,
     Generic,
@@ -14,8 +15,13 @@ TData = TypeVar("TData")
 TListItem = TypeVar("TListItem")
 
 
+class HealthStatus(Enum):
+    HEALTHY = "Healthy"
+    UNHEALTHY = "Unhealthy"
+
+
 class SHealthcheckOut(Schema):
-    status: str = "Healthy"
+    status: HealthStatus
 
 
 class PingResponseSchema(Schema):

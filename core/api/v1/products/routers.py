@@ -12,7 +12,12 @@ from core.apps.products.filters.products import ProductFiltersEntity
 product_router = Router(tags=["Products"])
 
 
-@product_router.get("", response=ApiResponse[ListPaginatedResponse[SProduct]])
+@product_router.get(
+    "",
+    response={
+        200: ApiResponse[ListPaginatedResponse[SProduct]],
+    },
+)
 def get_product_list(
     request: HttpRequest,
     pagination_in: Query[PaginationIn],

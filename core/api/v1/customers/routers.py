@@ -18,7 +18,7 @@ customer_router = Router(tags=["Customers"])
 
 
 @customer_router.post(
-    "login", response=ApiResponse[LoginOutShema], operation_id="login"
+    "login", response={200: ApiResponse[LoginOutShema]}, operation_id="login"
 )
 def login(request: HttpRequest, login_in: LoginInShema) -> ApiResponse[LoginOutShema]:
     container = init_container()
@@ -32,7 +32,11 @@ def login(request: HttpRequest, login_in: LoginInShema) -> ApiResponse[LoginOutS
 
 
 @customer_router.post(
-    "confirm", response=ApiResponse[ConfirmOutSchema], operation_id="confirm"
+    "confirm",
+    response={
+        200: ApiResponse[ConfirmOutSchema],
+    },
+    operation_id="confirm",
 )
 def confirm(
     request: HttpRequest, confirm_in: ConfirmInSchema
