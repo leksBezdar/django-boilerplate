@@ -15,7 +15,6 @@ punq = "^0.7.0"
 
 
 [tool.poetry.group.lint.dependencies]
-ruff = "^0.4.6"
 pre-commit = "^3.7.1"
 
 
