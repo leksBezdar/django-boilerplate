@@ -1,5 +1,6 @@
 from uuid import uuid4
 from core.apps.customers.entities.customers import CustomerEntity
+from core.apps.customers.exceptions.customers import InvalidCustomerTokenException
 from core.apps.customers.models.customers import CustomerModel
 from core.apps.customers.services.base import ICustomerService
 
@@ -22,3 +23,11 @@ class CustomerService(ICustomerService):
         )
 
         return new_token
+
+    def get_by_token(self, token: str) -> CustomerEntity | None:
+        try:
+            customer_dto = CustomerModel.objects.get(token=token)
+        except CustomerModel.DoesNotExist:
+            raise InvalidCustomerTokenException(token=token)
+
+        return customer_dto.to_entity()

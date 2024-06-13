@@ -16,8 +16,17 @@ from core.apps.customers.services.senders import (
     EmailSenderService,
     PushSenderService,
 )
-from core.apps.products.services.base import IProductService
+from core.apps.products.services.base import (
+    IProductReviewService,
+    IProductReviewValidatorService,
+    IProductService,
+)
 from core.apps.products.services.products import ProductService
+from core.apps.products.services.reviews import (
+    ComposedProductReviewValidatorService,
+    ProductReviewService,
+)
+from core.apps.products.use_cases.reviews.create import CreateProductReviewUseCase
 
 
 @lru_cache(1)
@@ -42,5 +51,12 @@ def _init_container() -> Container:
         ),
     )
     container.register(IAuthService, AuthService)
+    container.register(IProductReviewService, ProductReviewService)
+    container.register(
+        IProductReviewValidatorService,
+        ComposedProductReviewValidatorService,
+        list_validators=[],
+    )
+    container.register(CreateProductReviewUseCase)
 
     return container

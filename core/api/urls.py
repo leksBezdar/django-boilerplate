@@ -10,7 +10,7 @@ api = NinjaAPI()
 
 @api.get("/healthcheck", response=SHealthcheckOut)
 def healthcheck(request: HttpRequest) -> SHealthcheckOut:
-    return SHealthcheckOut(status=HealthStatus.HEALTHY)
+    return SHealthcheckOut(status=HealthStatus.HEALTHY.value)
 
 
 api.add_router(prefix="v1", router=v1_router)

@@ -4,7 +4,7 @@ from core.apps.products.models.products import ProductModel
 from core.apps.products.models.reviews import ProductReviewModel
 
 
-class ReviewProductInline(admin.TabularInline):
+class ProductReviewInline(admin.TabularInline):
     model = ProductReviewModel
     extra = 0
 
@@ -19,7 +19,7 @@ class ProductAdmin(admin.ModelAdmin):
         "created_at",
         "updated_at",
     )
-    inlines = (ReviewProductInline,)
+    inlines = (ProductReviewInline,)
 
 
 @admin.register(ProductReviewModel)

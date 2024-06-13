@@ -27,7 +27,7 @@ postgres:
 
 .PHONY: storages-logs
 storages-logs:
-	${LOGS} -f ${DB_CONTAINER} 
+	${LOGS} -f ${DB_CONTAINER}
 
 .PHONY: app
 app:
@@ -35,7 +35,7 @@ app:
 
 .PHONY: app-logs
 app-logs:
-	${LOGS} -f ${APP_CONTAINER} 
+	${LOGS} -f ${APP_CONTAINER}
 
 .PHONY: db-logs
 db-logs:
@@ -60,7 +60,6 @@ superuser:
 .PHONY: collectstatic
 collectstatic:
 	${EXEC} ${APP_CONTAINER} ${MANAGE_PY} collectstatic
-
 
 .PHONY: run-test
 run-test:

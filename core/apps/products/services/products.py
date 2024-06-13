@@ -1,6 +1,7 @@
 from typing import Iterable
 from core.api.filters import PaginationIn
 from core.apps.products.entities.products import ProductEntity
+from core.apps.products.exceptions.products import ProductNotFoundException
 from core.apps.products.filters.products import ProductFiltersEntity
 from core.apps.products.models.products import ProductModel
 from core.apps.products.services.base import IProductService
@@ -31,3 +32,11 @@ class ProductService(IProductService):
         query = self._build_product_query(filters)
 
         return ProductModel.objects.filter(query).count()
+
+    def get_by_id(self, product_id: int) -> ProductEntity:
+        try:
+            product_dto = ProductModel.objects.get(id=product_id)
+        except ProductModel.DoesNotExist:
+            raise ProductNotFoundException(product_id=product_id)
+
+        return product_dto.to_entity()

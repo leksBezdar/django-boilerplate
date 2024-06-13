@@ -4,6 +4,9 @@ from dataclasses import dataclass
 from core.apps.customers.entities.customers import CustomerEntity
 
 
+# TODO take out business logic to use cases layer
+
+
 @dataclass(eq=False)
 class IAuthService(ABC):
     customer_service: "ICustomerService"
@@ -38,3 +41,6 @@ class ICustomerService(ABC):
 
     @abstractmethod
     def get(self, phone: str) -> CustomerEntity: ...
+
+    @abstractmethod
+    def get_by_token(self, token: str) -> CustomerEntity: ...
