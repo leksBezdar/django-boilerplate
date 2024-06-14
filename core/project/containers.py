@@ -24,7 +24,9 @@ from core.apps.products.services.base import (
 from core.apps.products.services.products import ProductService
 from core.apps.products.services.reviews import (
     ComposedProductReviewValidatorService,
+    ProductReviewRatingValidatorService,
     ProductReviewService,
+    UniqueCustomerProductReviewValidatorService,
 )
 from core.apps.products.use_cases.reviews.create import CreateProductReviewUseCase
 
@@ -37,8 +39,20 @@ def init_container() -> Container:
 def _init_container() -> Container:
     container = Container()
 
+    def build_validators() -> IProductReviewValidatorService:
+        return ComposedProductReviewValidatorService(
+            list_validators=[
+                container.resolve(UniqueCustomerProductReviewValidatorService),
+                container.resolve(ProductReviewRatingValidatorService),
+            ],
+        )
+
     # init services
     container.register(IProductService, ProductService)
+    container.register(IProductReviewService, ProductReviewService)
+    container.register(UniqueCustomerProductReviewValidatorService)
+    container.register(ProductReviewRatingValidatorService)
+
     container.register(ICustomerService, CustomerService)
     container.register(ICodeSerivce, DjangoCacheCodeService)
     container.register(
@@ -50,13 +64,8 @@ def _init_container() -> Container:
             PushSenderService(),
         ),
     )
-    container.register(IAuthService, AuthService)
-    container.register(IProductReviewService, ProductReviewService)
-    container.register(
-        IProductReviewValidatorService,
-        ComposedProductReviewValidatorService,
-        list_validators=[],
-    )
+    container.register(IProductReviewValidatorService, factory=build_validators)
     container.register(CreateProductReviewUseCase)
+    container.register(IAuthService, AuthService)
 
     return container

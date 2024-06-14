@@ -23,6 +23,11 @@ class IProductService(ABC):
 
 class IProductReviewService(ABC):
     @abstractmethod
+    def check_review_exists(
+        self, product: ProductEntity, customer: CustomerEntity
+    ) -> bool: ...
+
+    @abstractmethod
     def save_review(
         self,
         customer: CustomerEntity,
