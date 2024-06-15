@@ -7,6 +7,7 @@ ENV = --env-file .env
 APP_FILE = docker_compose/app.yaml
 APP_CONTAINER = main-app
 MANAGE_PY = python manage.py
+MONITORING_FILE = docker_compose/monitoring.yaml
 
 
 DB_USER = $(shell grep DB_USER .env | cut -d '=' -f2)
@@ -32,6 +33,14 @@ storages-logs:
 .PHONY: app
 app:
 	${DC} -f ${STORAGES_FILE} -f ${APP_FILE} ${ENV} up --build -d
+
+.PHONY: monitoring
+monitoring:
+	${DC} -f ${MONITORING_FILE} ${ENV} up --build -d
+
+.PHONY: monitoring-logs
+monitoring-logs:
+	${DC} -f ${MONITORING_FILE} ${ENV} logs -f
 
 .PHONY: app-logs
 app-logs:
